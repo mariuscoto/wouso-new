@@ -638,7 +638,7 @@ var QuestContrib = React.createClass({
         <div className="spacer" />
         <div className="row">
           <ListSearch searchType='searchQuest' refreshType='refreshQuest'
-            selected={QuestListEntry.selected_quests} />
+                      game='quest' selected={QuestListEntry.selected_quests} />
         </div>
         <div className="row">
           <div className="reveal" id="questModal" data-reveal />

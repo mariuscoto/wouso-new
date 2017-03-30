@@ -26506,7 +26506,7 @@
 	              null,
 	              'Date:'
 	            ),
-	            React.createElement('input', { name: 'date', type: 'text', id: 'qotd-date', defaultValue: this.state.date }),
+	            React.createElement('input', { name: 'date', type: 'text', id: 'qotd-date', value: this.state.date }),
 	            React.createElement('div', { id: 'datepicker' })
 	          )
 	        ),
@@ -26625,6 +26625,53 @@
 	  }
 	});
 
+	var EventsList = React.createClass({
+	  displayName: 'EventsList',
+
+	  getInitialState: function () {
+	    return {
+	      events: []
+	    };
+	  },
+
+	  componentDidMount: function () {
+	    $.get('/api/wouso-qotd/events', function (res) {
+	      if (this.isMounted()) {
+	        this.setState({
+	          events: res
+	        });
+	      }
+	    }.bind(this));
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'row' },
+	      this.state.events.map(function (ev) {
+	        return React.createElement(
+	          'div',
+	          null,
+	          React.createElement(
+	            'div',
+	            { className: 'large-3 columns' },
+	            ' ',
+	            ev.date,
+	            ' '
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'large-9 columns' },
+	            ' ',
+	            ev.message,
+	            ' '
+	          )
+	        );
+	      }, this)
+	    );
+	  }
+	});
+
 	var QotdList = React.createClass({
 	  displayName: 'QotdList',
 
@@ -26657,7 +26704,7 @@
 	        'div',
 	        { className: 'row' },
 	        React.createElement(ListSearch, { searchType: 'searchQotd', refreshType: 'refreshQotd',
-	          selected: QotdListEntry.selected_qotd })
+	          game: 'qotd', selected: QotdListEntry.selected_qotd })
 	      ),
 	      React.createElement(
 	        'div',
@@ -26683,6 +26730,21 @@
 	          React.createElement('div', { className: 'spacer' }),
 	          React.createElement(ListNav, { total: this.state.total, no: this.state.no,
 	            page: this.state.page, refreshType: 'refreshQotd' })
+	        )
+	      ),
+	      React.createElement('div', { className: 'spacer' }),
+	      React.createElement(
+	        'div',
+	        { className: 'row' },
+	        React.createElement(
+	          'div',
+	          { className: 'large-12 columns' },
+	          React.createElement(
+	            'h2',
+	            null,
+	            this.props.intl.formatMessage({ id: 'qotd_events_list_title' })
+	          ),
+	          React.createElement(EventsList, null)
 	        )
 	      ),
 	      React.createElement('div', { className: 'spacer' })
@@ -27574,7 +27636,7 @@
 	      if (conf) {
 	        $.ajax({
 	          type: "DELETE",
-	          url: '/api/wouso-quest/delete?id=' + this.props.selected.join(','),
+	          url: '/api/wouso-' + this.props.game + '/delete?id=' + this.props.selected.join(','),
 	          data: null,
 	          success: gotResponse
 	        });
@@ -27949,6 +28011,7 @@
 		"qotd_add_field_date": "Date (dd/mm/yy):",
 		"qotd_add_answer": "Add answer",
 		"qotd_list_title": "List of questions",
+		"qotd_events_list_title": "Recent changes",
 		"qotd_tags_title": "Tags:",
 		"quest_title": "Quest",
 		"quest_alert_login": "You need to login to play this game",
@@ -28081,6 +28144,7 @@
 		"qotd_add_field_date": "Data (zi/lună/an):",
 		"qotd_add_answer": "Adaugă variantă",
 		"qotd_list_title": "Lista cu întrebări",
+		"qotd_events_list_title": "Schimbări recente",
 		"qotd_tags_title": "Etichete:",
 		"quest_title": "Provocare",
 		"quest_alert_login": "Trebuie să te autentifici pentru a putea juca.",
@@ -29042,7 +29106,7 @@
 	        'div',
 	        { className: 'row' },
 	        React.createElement(ListSearch, { searchType: 'searchQuest', refreshType: 'refreshQuest',
-	          selected: QuestListEntry.selected_quests })
+	          game: 'quest', selected: QuestListEntry.selected_quests })
 	      ),
 	      React.createElement(
 	        'div',

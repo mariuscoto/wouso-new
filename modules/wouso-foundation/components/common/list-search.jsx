@@ -12,7 +12,7 @@ var ListSearch = React.createClass({
       if (conf) {
         $.ajax({
           type    : "DELETE",
-          url     : '/api/wouso-quest/delete?id=' + this.props.selected.join(','),
+          url     : '/api/wouso-' + this.props.game + '/delete?id=' + this.props.selected.join(','),
           data    : null,
           success : gotResponse
         });

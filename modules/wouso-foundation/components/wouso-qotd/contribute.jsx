@@ -239,6 +239,37 @@ var QotdListEntry = React.createClass({
 });
 
 
+var EventsList = React.createClass({
+  getInitialState: function() {
+    return {
+      events : []
+    }
+  },
+
+  componentDidMount: function() {
+    $.get('/api/wouso-qotd/events', function(res) {
+      if (this.isMounted()) {
+        this.setState({
+          events : res
+        });
+      }
+    }.bind(this));
+  },
+
+
+  render: function() {
+    return (<div className="row">
+      { this.state.events.map(function (ev) {
+        return (<div>
+          <div className="large-3 columns"> {ev.date} </div>
+          <div className="large-9 columns"> {ev.message} </div>
+        </div>);
+      }, this)}
+    </div>);
+  }
+});
+
+
 var QotdList = React.createClass({
   getInitialState: function() {
     return {
@@ -266,7 +297,7 @@ var QotdList = React.createClass({
       <div>
         <div className="row">
           <ListSearch searchType='searchQotd' refreshType='refreshQotd'
-                      selected={QotdListEntry.selected_qotd} />
+                      game='qotd' selected={QotdListEntry.selected_qotd} />
         </div>
         <div className="row">
           <div className="reveal" id="qotdModal" data-reveal></div>
@@ -282,6 +313,15 @@ var QotdList = React.createClass({
             <div className="spacer"></div>
             <ListNav total={this.state.total} no={this.state.no}
                      page={this.state.page} refreshType='refreshQotd' />
+          </div>
+        </div>
+        <div className="spacer"></div>
+        <div className="row">
+          <div className="large-12 columns">
+            <h2>
+              { this.props.intl.formatMessage({id: 'qotd_events_list_title'}) }
+            </h2>
+            <EventsList />
           </div>
         </div>
         <div className="spacer"></div>

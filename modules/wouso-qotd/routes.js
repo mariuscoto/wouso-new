@@ -6,6 +6,7 @@ var qotd     = mongoose.model('Qotd');
 var QOption  = mongoose.model('QOption');
 var settings = mongoose.model('Settings');
 var Tag      = mongoose.model('Tag');
+var Event    = mongoose.model('Event');
 var Badges   = mongoose.model('Badge');
 var User     = mongoose.model('User');
 
@@ -454,8 +455,40 @@ router.delete('/api/wouso-qotd/delete', login.isContributor, function (req, res)
       return res.send('NOK');
     } else {
       log.info('Removed qotd: ' + del_list);
+      // Mark event
+      new Event({
+        game    : 'qotd',
+        message : 'User ' + req.user.name + ' removed qotd(s) ' + del_list
+      }).save(savedEvent)
+
       return res.send('OK');
     }
+  }
+
+  function savedEvent(err) {
+    if (err) log.error('Could not save qotd remove event')
+  }
+});
+
+
+/*
+* ENDPOINT: GET /api/wouso-qotd/events
+*
+* DESCRIPTION: Get Qotd Events
+*
+* OUTPUT: Events list
+*
+*/
+router.get('/api/wouso-qotd/events', login.isContributor, function (req, res) {
+
+  Event.find({'game': 'qotd'}).exec(gotEvents);
+
+  function gotEvents(err, events) {
+    if (err) {
+      log.error('Could not get qotd events');
+    }
+
+    res.send(events);
   }
 });
 
