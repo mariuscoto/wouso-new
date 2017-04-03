@@ -26661,9 +26661,23 @@
 	          ),
 	          React.createElement(
 	            'div',
-	            { className: 'large-9 columns' },
+	            { className: 'large-3 columns' },
 	            ' ',
-	            ev.message,
+	            ev.who,
+	            ' '
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'large-3 columns' },
+	            ' ',
+	            ev.action,
+	            ' '
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'large-3 columns' },
+	            ' ',
+	            ev.what,
 	            ' '
 	          )
 	        );

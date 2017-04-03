@@ -262,7 +262,9 @@ var EventsList = React.createClass({
       { this.state.events.map(function (ev) {
         return (<div>
           <div className="large-3 columns"> {ev.date} </div>
-          <div className="large-9 columns"> {ev.message} </div>
+          <div className="large-3 columns"> {ev.who} </div>
+          <div className="large-3 columns"> {ev.action} </div>
+          <div className="large-3 columns"> {ev.what} </div>
         </div>);
       }, this)}
     </div>);

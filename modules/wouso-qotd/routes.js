@@ -455,11 +455,14 @@ router.delete('/api/wouso-qotd/delete', login.isContributor, function (req, res)
       return res.send('NOK');
     } else {
       log.info('Removed qotd: ' + del_list);
-      // Mark event
-      new Event({
-        game    : 'qotd',
-        message : 'User ' + req.user.name + ' removed qotd(s) ' + del_list
-      }).save(savedEvent)
+      del_list.forEach(function (element_id) {
+        new Event({
+          game    : 'qotd',
+          who     : req.user._id,
+          action  : 'remove',
+          what    : element_id
+        }).save(savedEvent)
+      });
 
       return res.send('OK');
     }
