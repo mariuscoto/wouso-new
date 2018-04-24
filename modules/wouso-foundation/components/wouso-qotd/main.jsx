@@ -8,7 +8,7 @@ var QotdTeach = require('./teacher');
 var QotdAdmin = require('./admin');
 
 var locales = require('../../locales/locales.js');
-var config  = require('config');
+var config  = require('../../../../config.json');
 
 
 var intlData = {
