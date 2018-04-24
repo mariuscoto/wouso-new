@@ -4,13 +4,14 @@ process.env.NODE_ENV = 'testing';
 var request  = require('supertest');
 var should   = require('should');
 var mongoose = require('mongoose');
+var fs       = require('fs');
 
 var Cookies;
 var app;
 
 
 // Read config file
-var data= require('../config.js');
+var data = (JSON.parse(fs.readFileSync('./config.json', 'utf8')));
 
 describe('Superuser login tests:', function () {
   before(function (done) {
