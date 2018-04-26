@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  .row
+  .grid-x
     - if (!user)
       h4= __('messages_alert_login')
     - else

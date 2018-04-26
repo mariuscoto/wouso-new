@@ -1,3 +1,13 @@
+#main {
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+#games {
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
 .top-bar {
   background: #333;
   height: 50px;

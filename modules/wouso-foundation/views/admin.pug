@@ -1,13 +1,13 @@
 extends layout
 
 block sidebar
-  .row
-    .large-12.columns
+  .grid-x
+    .large-12.cell
       ul
         li: a(href='/admin/settings')= __('admin_nav_application')
         li: a(href='/admin/users')= __('admin_nav_users')
         li: a(href='/admin/tags')= __('admin_nav_tags')
 
 block content
-  .row
+  .grid-x
     #admin

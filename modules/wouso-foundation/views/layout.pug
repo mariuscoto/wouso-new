@@ -8,9 +8,9 @@ html
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js')
 
     // Foundation css + js
-    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.0/css/foundation.css')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.0/js/foundation.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.0/js/plugins/foundation.reveal.min.js')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.css')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/plugins/foundation.reveal.min.js')
 
     // Countdown
     link(rel='stylesheet', href='https://code.jquery.com/ui/1.8.2/themes/smoothness/jquery-ui.css')
@@ -81,13 +81,14 @@ html
               li.active
                 a(href='/logout')= __('nav_logout')
 
-    .row
-      ul.sub-nav.menu(role="navigation")
-        li.sub-nav-title= __('module_title') + ':'
-        each mod in settings.games
-          li: a(href='/' + mod)= __('module_' + mod)
+    #games.grid-container
+      .grid-x
+        ul.sub-nav.menu(role="navigation")
+          li.sub-nav-title= __('module_title') + ':'
+          each mod in settings.games
+            li: a(href='/' + mod)= __('module_' + mod)
 
-    #main
+    #main.grid-container.full
       block sidebar
       block content
 
