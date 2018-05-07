@@ -59,6 +59,7 @@ if (process.env.NODE_ENV == 'production') {
 // Require db schemas
 var Settings = require('./config/models/settings');
 var Tag      = require('./config/models/tag');
+var Event    = require('./config/models/event');
 var Badges   = require('./config/models/badges');
 
 // Ensure superuser exists
