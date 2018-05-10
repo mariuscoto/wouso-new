@@ -11,7 +11,7 @@ var configDB = require('../config.json')
 mongoose.connect(configDB.mongo_url.dev)
 
 // Import models
-require('../modules/qotd/model.js')
+require('../modules/wouso-qotd/model.js')
 var qotd     = mongoose.model('Qotd')
 var QOption  = mongoose.model('QOption')
 
